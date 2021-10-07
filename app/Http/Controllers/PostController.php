@@ -12,7 +12,7 @@ class PostController extends Controller
     {
         $posts = Post::published()->get();
 
-        return view('posts', compact('posts'));
+        return view('posts.index', compact('posts'));
     }
 
     public function show(Post $post)
@@ -23,7 +23,7 @@ class PostController extends Controller
         // ukoliko ga ne pronadje, vraca error 404 - odnosno not found page 
         
         if($post->is_published){
-            return view('post', compact('post'));
+            return view('posts.show', compact('post'));
         } else { 
             throw new ModelNotFoundException;
         }

@@ -4,7 +4,7 @@
     
 
 @section('content')
-    <a href="/posts">Go to Posts page</a>
+
     <h2>
         {{ $post->title }}
     </h2>

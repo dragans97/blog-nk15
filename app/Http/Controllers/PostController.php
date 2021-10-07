@@ -14,9 +14,13 @@ class PostController extends Controller
         return view('posts', compact('posts'));
     }
 
-    public function show($id)
+    public function show(Post $post)
     {
-        $post = Post::findOrFail($id);
+        // OVO VISE NE TREBA (skraceni nacin za pisanje show metode) jer sam pronadje trazeni post spram prosledjenog ID u datom modelu i sacuva ga u $post promenljivu 
+        // potrebno je promeniti naziv u ruti da bude isti kao i promenljiva koju definisemo (nije vise id vec post)
+        // $post = Post::findOrFail($id);
+        // ukoliko ga ne pronadje, vraca error 404 - odnosno not found page 
+        
 
         return view('post', compact('post'));
     }

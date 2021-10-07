@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::published()->get();
 
         return view('posts', compact('posts'));
     }
@@ -21,7 +22,11 @@ class PostController extends Controller
         // $post = Post::findOrFail($id);
         // ukoliko ga ne pronadje, vraca error 404 - odnosno not found page 
         
-
-        return view('post', compact('post'));
+        if($post->is_published){
+            return view('post', compact('post'));
+        } else { 
+            throw new ModelNotFoundException;
+        }
+        
     }
 }

@@ -18,6 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/posts', [PostController::class, 'index']);
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('post');
+// kada imamo dve rute sa statickim i dinamickim parametrom, ova sa statickim mora biti iznad dinamicke 
+//jer ce u suprotnom 'create' smatrati kao id posta u ovom slucaju
 
+Route::get('/posts', [PostController::class, 'index']);
+Route::get('/posts/create', [PostController::class, 'create']);
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('post');
+Route::post('/posts', [PostController::class, 'store']);

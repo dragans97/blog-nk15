@@ -28,4 +28,16 @@
         <p>There's no comments for this post.</p>
     @endforelse
 
+    <form action="{{ route('create-comment', ['post' => $post->id]) }}" method="POST">
+        @csrf
+        <div class="form-group my-3">
+            <label for="body">Add comment: </label>
+            <textarea name="body" id="body" cols="30" rows="10" class="form-control" placeholder="Write.."></textarea>
+            @error('body') 
+                <div class="alert alert-danger mt-1">{{ $message }}</div>
+            @enderror
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
 @endsection

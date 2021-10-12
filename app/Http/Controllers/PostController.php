@@ -27,6 +27,7 @@ class PostController extends Controller
         
         if($post->is_published){
             $post->load(['comments']);
+         
             return view('posts.show', compact('post'));
         } else { 
             throw new ModelNotFoundException;

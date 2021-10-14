@@ -7,6 +7,7 @@ use App\Post;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Session;
 use App\Http\Requests\CreatePostRequest;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -71,10 +72,12 @@ class PostController extends Controller
 
         $data = $request->validated();
 
-        $post = Post::create($data);
+        // $post = Post::create($data);
+        // sada preko usera i relacije mozemo kreirati post (id ce se sam upisati pomocu relacije)
+        $post = Auth::user()->posts()->create($data);
 
         session()->flash('success', 'Uspesno ste kreirali blog post.');
-        return redirect()->back();
+        return redirect('posts');
         
     }
 }

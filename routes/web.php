@@ -23,7 +23,7 @@ Route::get('/', function () {
 //jer ce u suprotnom 'create' smatrati kao id posta u ovom slucaju
 
 Route::get('/posts', [PostController::class, 'index']);
-Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth');
+Route::get('/posts/create', [PostController::class, 'create'])->name('createPost')->middleware('auth');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('post');
 Route::post('/posts', [PostController::class, 'store']);
 Route::post('posts/{post}/comments', [CommentController::class, 'store'])->name('create-comment');

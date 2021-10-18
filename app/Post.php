@@ -13,7 +13,7 @@ class Post extends Model
 
     public static function published()
     {
-        return self::where('is_published', true)->with('comments');
+        return self::where('is_published', true)->with('comments', 'user');
     }
 
     public function comments(){

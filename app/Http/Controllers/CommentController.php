@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Comment;
 use App\Http\Requests\CommentRequest;
+use App\Mail\CommentReceived;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -45,7 +48,8 @@ class CommentController extends Controller
         // ]);
 
         // na ovaj nacin ce automatski da pronadje kom postu pripada ovaj komentar
-        $post->comments()->create($data);
+        $comment = $post->comments()->create($data);
+        Mail::to($post->user)->send(new CommentReceived(Auth::user(), $comment ));
 
         session()->flash('success', 'Uspesno ste postavili komentar');
         return redirect()->back();

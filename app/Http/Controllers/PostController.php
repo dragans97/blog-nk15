@@ -4,15 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Session;
 use App\Http\Requests\CreatePostRequest;
 use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
     public function index()
     {
+        // DB::listen(function($query){
+        //     info($query->sql);
+        // });
+        
+        
         // kada se koristi with stavlja se naziv f-je iz modela
         $posts = Post::published()->with('comments')->get();
         return view('posts.index', compact('posts'));
@@ -79,5 +86,10 @@ class PostController extends Controller
         session()->flash('success', 'Uspesno ste kreirali blog post.');
         return redirect('posts');
         
+    }
+
+    public function getAuthorsPosts(User $author){
+        $posts = $author->posts()->where('is_published', true)->get();
+        return view('posts.index', compact('posts'));
     }
 }
